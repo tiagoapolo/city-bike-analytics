@@ -2,6 +2,7 @@
 
 # Começando com os imports
 import csv
+import statistics
 import matplotlib.pyplot as plt
 
 # Vamos ler os dados como uma lista
@@ -54,9 +55,16 @@ for linha in range(1, 21):
 input("Aperte Enter para continuar...")
 # TAREFA 3
 # TODO: Crie uma função para adicionar as colunas(features) de uma lista em outra lista, na mesma ordem
-def column_to_list(data, index):
+def column_to_list(data, index) -> list:
     column_list = []
     # Dica: Você pode usar um for para iterar sobre as amostras, pegar a feature pelo seu índice, e dar append para uma lista
+
+#       Função para criar uma lista baseada em valores de uma coluna especificada pelo index.
+#       Argumentos:
+#           data: Dataset com todas as colunas.
+#           index: index da coluna desejada.
+#       Retorna:
+#           Uma lista de valores da coluna desejada.
 
     for feature in data:
         column_list.append(feature[index])
@@ -101,7 +109,17 @@ input("Aperte Enter para continuar...")
 # TAREFA 5
 # TODO: Crie uma função para contar os gêneros. Retorne uma lista.
 # Isso deveria retornar uma lista com [count_male, count_female] (exemplo: [10, 15] significa 10 Masculinos, 15 Femininos)
-def count_gender(data_list):
+
+
+def count_gender(data_list) -> list:
+
+#       Função para contar quantidade de Masculino e Feminino.
+#       Argumentos:
+#           data_list: Lista contendo valores Male e Female.
+#       Retorna:
+#           Uma lista com 2 valores, sendo o primeiro a quantidade de homens
+#           e a segunda a quantidade mulheres.
+
     male = 0
     female = 0
 
@@ -170,7 +188,15 @@ input("Aperte Enter para continuar...")
 print("\nTAREFA 7: Verifique o gráfico!")
 
 
-def count_usertype(data_list):
+def count_usertype(data_list) -> list:
+
+#       Função para contar quantidade de clientes e assinantes.
+#       Argumentos:
+#           data_list: Lista contendo valores Customer e Subscriber.#
+#       Retorna:
+#           Uma lista com 2 valores, sendo o primeiro a quantidade de clientes
+#           e a segunda a quantidade assinantes.
+
     customer = 0
     subscriber = 0
 
@@ -208,6 +234,8 @@ assert answer != "Escreva sua resposta aqui.", "TAREFA 8: Escreva sua própria r
 # -----------------------------------------------------
 
 input("Aperte Enter para continuar...")
+
+
 # Vamos trabalhar com trip_duration (duração da viagem) agora. Não conseguimos tirar alguns valores dele.
 # TAREFA 9
 # TODO: Ache a duração de viagem Mínima, Máxima, Média, e Mediana.
@@ -217,6 +245,24 @@ min_trip = 0.
 max_trip = 0.
 mean_trip = 0.
 median_trip = 0.
+trips = column_to_list(data_list,2)
+trips.sort(key=int)
+
+min_trip = int(trips[1])
+
+for trip in trips:
+    mean_trip = mean_trip + int(trip)
+
+min_trip = int(trips[0])
+max_trip = int(trips[len(trips)-1])
+a = int(trips[int(len(trips)/2)])
+b = int(trips[int((len(trips)/2)+1)])
+
+median_trip = int((a+b)/2)
+
+mean_trip = round((mean_trip / len(trips)),0)
+
+
 
 
 print("\nTAREFA 9: Imprimindo o mínimo, máximo, média, e mediana")
@@ -234,6 +280,9 @@ input("Aperte Enter para continuar...")
 # Gênero é fácil porque nós temos apenas algumas opções. E quanto a start_stations? Quantas opções ele tem?
 # TODO: Verifique quantos tipos de start_stations nós temos, usando set()
 user_types = set()
+
+for st in column_to_list(data_list, 3):
+    user_types.add(st)
 
 print("\nTAREFA 10: Imprimindo as start stations:")
 print(len(user_types))
